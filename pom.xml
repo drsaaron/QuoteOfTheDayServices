@@ -9,20 +9,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.version>4.3.5.RELEASE</spring.version>
+        <spring.version>5.0.0.RELEASE</spring.version>
     </properties>
     
     <parent>  
         <groupId>org.springframework.boot</groupId>           
         <artifactId>spring-boot-starter-parent</artifactId>           
-        <version>1.4.1.RELEASE</version>     
+        <version>1.5.8.RELEASE</version>     
     </parent> 
     
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.4.1.RELEASE</version>
+            <version>1.5.8.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
