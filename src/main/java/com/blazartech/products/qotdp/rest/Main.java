@@ -18,7 +18,6 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ComponentScan("com.blazartech")
-@ImportResource("classpath:SpringXMLConfig.xml")
 public class Main {
     
     private static final Logger logger = Logger.getLogger(Main.class);
