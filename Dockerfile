@@ -1,15 +1,15 @@
 # Start from the java docker.
 FROM openjdk:latest
 
-# add the target directory, which has the jars
-ADD ./target /app/target
+# create a workdir
+WORKDIR /app
 
-# add the crypto file data, which for some reason can't be read from ~/.blazartech
-#ADD ./bt /root/.blazartech
+# add the target directory, which has the jars
+ADD ./target ./target
 
 # add a shell script to run the java program
-ADD ./runWithDependency-docker.sh /app/runWithDependency.sh
+ADD ./runWithDependency-docker.sh ./runWithDependency.sh
 
 # run the script
-CMD /app/runWithDependency.sh
+CMD ./runWithDependency.sh
 
