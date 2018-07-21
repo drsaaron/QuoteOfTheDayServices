@@ -1,3 +1,3 @@
 #! /bin/ksh
 
-mvn exec:java
+java -jar target/QuoteOfTheDayServices-1.0-SNAPSHOT.jar

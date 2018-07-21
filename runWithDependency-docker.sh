@@ -1,7 +1,5 @@
 #! /bin/sh
 
-cd /app
-export CLASSPATH=$(echo target/*.jar target/dependency/*.jar | sed 's/ /:/g')
-java com.blazartech.products.qotdp.rest.Main
+java -jar target/QuoteOfTheDayServices-1.0-SNAPSHOT.jar
 
 
