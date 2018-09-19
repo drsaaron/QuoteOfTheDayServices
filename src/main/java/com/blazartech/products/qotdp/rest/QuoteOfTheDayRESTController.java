@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author scott
  */
 @RestController
-public class QuoteOfTheDatRESTController {
+public class QuoteOfTheDayRESTController {
     
-    private static final Logger logger = Logger.getLogger(QuoteOfTheDatRESTController.class);
+    private static final Logger logger = Logger.getLogger(QuoteOfTheDayRESTController.class);
 
     @Autowired
     private QuoteOfTheDayDAL dal;
