@@ -14,7 +14,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CORSFilter implements Filter {
 
-    private static final Logger logger = Logger.getLogger(CORSFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CORSFilter.class);
     
     @Override
     public void init(FilterConfig fc) throws ServletException {

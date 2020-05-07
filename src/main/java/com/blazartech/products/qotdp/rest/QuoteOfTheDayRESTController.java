@@ -14,7 +14,8 @@ import com.blazartech.products.qotdp.process.GetQuoteOfTheDayPAB;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class QuoteOfTheDayRESTController {
     
-    private static final Logger logger = Logger.getLogger(QuoteOfTheDayRESTController.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuoteOfTheDayRESTController.class);
 
     @Autowired
     private QuoteOfTheDayDAL dal;
