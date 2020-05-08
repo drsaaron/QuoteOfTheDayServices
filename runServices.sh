@@ -1,4 +1,4 @@
-#! /bin/ksh
+#! /bin/sh
 
 appEnv=${ENVIRONMENT:-test}
 
