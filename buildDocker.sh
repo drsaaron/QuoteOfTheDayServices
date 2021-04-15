@@ -1,6 +1,6 @@
-#! /bin/ksh
+#! /bin/sh
 
-version=$(grep '^ *<version>' pom.xml | head -1 | perl -pe 's%</?version>%%g; s/-SNAPSHOT//; s/^ *//; s/\W*$//g')
+version=$(getPomAttibute.sh version | sed -e 's/-SNAPSHOT//')
 
 docker build -t drsaaron/qotdservices .
 docker tag drsaaron/qotdservices drsaaron/qotdservices:$version
