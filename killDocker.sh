@@ -1,3 +1,7 @@
 #! /bin/ksh
 
-docker kill $(docker ps | grep qotdservices | awk '{ print $1 }')
+imageName=$(getPomAttribute.sh artifactId | tr '[:upper:]' '[:lower:]')
+containerName=$imageName
+
+docker stop $containerName
+
