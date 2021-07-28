@@ -1,6 +1,6 @@
-#! /bin/ksh
+#! /bin/sh
 
-imageName=$(getPomAttribute.sh artifactId | tr '[:upper:]' '[:lower:]')
+imageName=$(dockerImageName.sh)
 containerName=$imageName
 
 docker stop $containerName
