@@ -165,4 +165,20 @@ public class QuoteOfTheDayRESTController {
         
         return dal.getQuoteSourceCode(id);
     }
+
+    @RequestMapping(value = "/sourceCode", method = RequestMethod.POST)
+    @Transactional
+    public QuoteSourceCode addSourceCode(@RequestBody QuoteSourceCode sourceCode) {
+	logger.info("adding source code " + sourceCode.getText());
+	dal.addQuoteSourceCode(sourceCode);
+	return sourceCode;
+    }
+
+    @RequestMapping(value = "/sourceCode", method = RequestMethod.PUT)
+    @Transactional
+    public QuoteSourceCode updateSourceCode(@RequestBody QuoteSourceCode sourceCode) {
+	logger.info("updating source code " + sourceCode.getNumber());
+	dal.updateQuoteSourceCode(sourceCode);
+	return sourceCode;
+    }
 }
