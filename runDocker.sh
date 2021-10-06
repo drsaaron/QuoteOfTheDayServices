@@ -6,8 +6,8 @@ ip=$(ifconfig wlo1 | grep inet | awk '$1=="inet" {print $2}')
 
 # run the service
 imageName=$(dockerImageName.sh)
-containerName=$imageName
+containerName=$(echo $imageName | sed -re 's%^.*/([a-zA-Z]*)$%\1%') # could also use basename $(dockerImageName.sh)
 
 docker stop $containerName
 docker rm $containerName
-docker run --name $containerName --add-host quoteDBServer:$ip -d -p 3000:3000 -v ~/.blazartech:/root/.blazartech drsaaron/$imageName
+docker run --name $containerName --add-host quoteDBServer:$ip -d -p 3000:3000 -v ~/.blazartech:/root/.blazartech $imageName
