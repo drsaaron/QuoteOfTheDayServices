@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>1.21-RELEASE</version>
+    <version>1.22-RELEASE</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,6 +48,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
+
+	<!-- swagger documentation, see https://www.baeldung.com/spring-rest-openapi-documentation -->
+	<dependency>
+	  <groupId>org.springdoc</groupId>
+	  <artifactId>springdoc-openapi-ui</artifactId>
+	  <version>1.5.12</version>
+	</dependency>
     </dependencies>
     
     <build>
@@ -55,7 +62,41 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+	<!--	<executions>
+		  <execution>
+		    <id>pre-integration-test</id>
+		    <goals>
+		      <goal>start</goal>
+		    </goals>
+		  </execution>
+		  <execution>
+		    <id>post-integration-test</id>
+		    <goals>
+		      <goal>stop</goal>
+		    </goals>
+		  </execution>
+		</executions> -->
             </plugin>
+
+	    <!-- generate the openAPI json file, disabled because it's not working yet -->
+	 <!--   <plugin>
+	      <groupId>org.springdoc</groupId>
+	      <artifactId>springdoc-openapi-maven-plugin</artifactId>
+	      <version>0.2</version>
+	      <executions>
+		<execution>
+		  <phase>integration-test</phase>
+		  <goals>
+		    <goal>generate</goal>
+		  </goals>
+		</execution>
+	      </executions>
+	      <configuration>
+		<apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+		<outputFileName>openapi.json</outputFileName>
+		<outputDir>${project.build.directory}</outputDir>
+	      </configuration>
+	    </plugin> -->
         </plugins>
     </build>
 </project>
