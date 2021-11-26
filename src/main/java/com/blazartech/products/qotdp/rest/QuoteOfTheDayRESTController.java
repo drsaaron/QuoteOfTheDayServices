@@ -229,11 +229,11 @@ public class QuoteOfTheDayRESTController {
         return getQuoteOfTheDayPAB.getQuoteOfTheDay(runDate);
     }
 
-    @RequestMapping(value = "/qotd/{runDate}", params = "quoteNumber", method = RequestMethod.POST)
+    @RequestMapping(value = "/qotd", method = RequestMethod.POST)
     @Transactional
     @Operation(summary = "add a quote of the day")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "list of quotes",
+        @ApiResponse(responseCode = "200", description = "new quote of the day",
                 content = {
                     @Content(
                             mediaType = "application/json",
@@ -241,14 +241,9 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    public QuoteOfTheDay addQuoteOfTheDay(
-            @Parameter(description = "run date, format yyyy-MM-dd") @PathVariable Date runDate, 
-            @Parameter(description = "quote number to be used") @RequestParam(required = true) int quoteNumber) {
-        logger.info("adding quote " + quoteNumber + " as quote of the day for " + runDate);
+    public QuoteOfTheDay addQuoteOfTheDay(@Parameter(description = "quote of the day") @RequestBody QuoteOfTheDay qotd) {
+        logger.info("adding quote " + qotd.getQuoteNumber() + " as quote of the day for " + qotd.getRunDate());
 
-        QuoteOfTheDay qotd = new QuoteOfTheDay();
-        qotd.setQuoteNumber(quoteNumber);
-        qotd.setRunDate(runDate);
         dal.addQuoteOfTheDay(qotd);
 
         return qotd;
