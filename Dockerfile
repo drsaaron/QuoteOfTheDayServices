@@ -1,5 +1,7 @@
 FROM drsaaron/blazarjavabase:1.1
 
+ENV ENVIRONMENT=prod
+
 # add the target directory, which has the jars
 ADD ./target ./target
 
