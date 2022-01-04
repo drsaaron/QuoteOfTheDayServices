@@ -1,6 +1,9 @@
-FROM drsaaron/blazarjavabase:1.1
+FROM drsaaron/blazarjavabase:1.6
 
 ENV ENVIRONMENT=prod
+
+# add the pom
+ADD ./pom.xml ./pom.xml
 
 # add the target directory, which has the jars
 ADD ./target ./target
