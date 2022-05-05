@@ -3,8 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>1.40-RELEASE</version>
+    <version>1.41-RELEASE</version>
     <packaging>jar</packaging>
+    <description>services for accessing data in the quote of the day application</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
@@ -54,6 +55,12 @@
 	  <groupId>org.springdoc</groupId>
 	  <artifactId>springdoc-openapi-ui</artifactId>
 	  <version>1.6.7</version>
+	</dependency>
+
+	<!-- actuator -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-actuator</artifactId>
 	</dependency>
 
     </dependencies>
