@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>1.44-RELEASE</version>
+    <version>1.45-RELEASE</version>
     <packaging>jar</packaging>
     <description>services for accessing data in the quote of the day application</description>
     <properties>
@@ -26,12 +26,12 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-process</artifactId>
-            <version>1.27-RELEASE</version>
+            <version>1.28-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-data-jpaImpl</artifactId>
-            <version>1.29-RELEASE</version>
+            <version>1.30-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
