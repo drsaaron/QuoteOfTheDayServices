@@ -11,4 +11,4 @@ containerName=$(echo $imageName | sed -re 's%^.*/([a-zA-Z]*)$%\1%') # could also
 
 docker stop $containerName
 docker rm $containerName
-docker run --network qotd --name $containerName --add-host quoteDBServer:$ip -d -p 3000:3000 -v ~/.blazartech:/root/.blazartech $imageName:$imageVersion
+docker run --user $(id -u):$(id -g) --network qotd --name $containerName --add-host quoteDBServer:$ip -d -p 3000:3000 -v ~/.blazartech:/home/$(whoami)/.blazartech $imageName:$imageVersion
