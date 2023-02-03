@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>1.55-RELEASE</version>
+    <version>1.56-RELEASE</version>
     <packaging>jar</packaging>
     <description>services for accessing data in the quote of the day application</description>
     <properties>
@@ -15,7 +15,7 @@
     <parent>  
         <groupId>org.springframework.boot</groupId>           
         <artifactId>spring-boot-starter-parent</artifactId>           
-        <version>3.0.0</version>     
+        <version>3.0.2</version>     
     </parent> 
     
     <dependencies>
@@ -26,12 +26,12 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-process</artifactId>
-            <version>1.34-RELEASE</version>
+            <version>1.35-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-data-jpaImpl</artifactId>
-            <version>1.37-RELEASE</version>
+            <version>1.39-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
