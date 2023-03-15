@@ -2,11 +2,14 @@ FROM drsaaron/blazarjavabase:1.14
 
 ENV ENVIRONMENT=prod
 
-# add the pom
+# add the source directory and mvn stuff
 ADD ./pom.xml ./pom.xml
+ADD ./src ./src
+ADD ./mvnw ./mvnw
+ADD ./.mvn ./.mvn
 
-# add the target directory, which has the jars
-ADD ./target ./target
+# build.  set skip.it to bypass the openapi spec generation
+RUN mvnw clean install -Dskip.it=true
 
 # add a shell script to run the java program
 ADD ./runServices.sh ./runServices.sh
