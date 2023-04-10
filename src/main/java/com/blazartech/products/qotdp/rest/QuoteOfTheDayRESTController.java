@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.text.SimpleDateFormat;
@@ -88,7 +89,7 @@ public class QuoteOfTheDayRESTController {
                 content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Quote[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = Quote.class))
                     )
                 })
     })
@@ -105,7 +106,7 @@ public class QuoteOfTheDayRESTController {
                 content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Quote[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = Quote.class))
                     )
                 })
     })
@@ -222,7 +223,7 @@ public class QuoteOfTheDayRESTController {
                 content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Quote[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = Quote.class))
                     )
                 })
     })   
@@ -263,7 +264,7 @@ public class QuoteOfTheDayRESTController {
                 content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = QuoteSourceCode[].class)
+                            array = @ArraySchema(schema = @Schema(implementation = QuoteSourceCode.class))
                     )
                 })
     })
