@@ -223,7 +223,7 @@ public class QuoteOfTheDayRESTController {
                 content = {
                     @Content(
                             mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Quote.class))
+                            schema = @Schema(implementation = Quote.class)
                     )
                 })
     })   
