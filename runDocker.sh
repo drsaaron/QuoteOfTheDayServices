@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # get the IP address of the host
-ip=$(ifconfig wlo1 | grep inet | awk '$1=="inet" {print $2}')
+ip=$(ifconfig | grep inet | awk '$1=="inet" {print $2}' | tail -1)
 #ip=$(nslookup blazartech-test.csl2otan97lp.us-east-2.rds.amazonaws.com | grep Address| tail -1 | awk '{ print $2 }')
 
 # run the service
