@@ -1,9 +1,5 @@
 #! /bin/sh
 
-# get the IP address of the host
-ip=$(ifconfig | grep inet | awk '$1=="inet" {print $2}' | tail -1)
-#ip=$(nslookup blazartech-test.csl2otan97lp.us-east-2.rds.amazonaws.com | grep Address| tail -1 | awk '{ print $2 }')
-
 # run the service
 imageName=$(dockerImageName.sh)
 imageVersion=$(getPomAttribute.sh version | sed 's/-RELEASE$//')
@@ -11,4 +7,4 @@ containerName=$(echo $imageName | sed -re 's%^.*/([a-zA-Z]*)$%\1%') # could also
 
 docker stop $containerName
 docker rm $containerName
-docker run --user $(id -u):$(id -g) --network qotd --name $containerName --add-host quoteDBServer:$ip -d -p 3000:3000 -v ~/.blazartech:/home/$(whoami)/.blazartech $imageName:$imageVersion
+docker run --user $(id -u):$(id -g) --network qotd --name $containerName -d -p 3000:3000 -v ~/.blazartech:/home/$(whoami)/.blazartech $imageName:$imageVersion
