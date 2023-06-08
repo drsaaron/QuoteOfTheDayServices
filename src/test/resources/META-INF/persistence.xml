@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.blazartech_QuoteOfTheDay-data-jpaImpl_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>com.blazartech.products.qotdp.data.access.impl.spring.jpa.entity.QuoteData</class>
+    <class>com.blazartech.products.qotdp.data.access.impl.spring.jpa.entity.QuoteOfTheDayData</class>
+    <class>com.blazartech.products.qotdp.data.access.impl.spring.jpa.entity.SrcValData</class>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
