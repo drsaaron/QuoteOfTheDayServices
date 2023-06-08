@@ -16,7 +16,6 @@ import com.blazartech.products.qotdp.data.access.impl.spring.jpa.SourceCodeCompa
 import com.blazartech.products.qotdp.data.access.impl.spring.jpa.config.EntityManagerConfig;
 import com.blazartech.products.qotdp.data.access.impl.spring.jpa.config.JpaVendorAdapterConfig;
 import com.blazartech.products.qotdp.data.access.impl.spring.jpa.config.TransactionManagerConfig;
-import com.blazartech.products.qotdp.data.config.DatasourceConfiguration;
 import com.blazartech.products.qotdp.process.GetQuoteOfTheDayPAB;
 import com.blazartech.products.qotdp.process.impl.GetQuoteOfTheDayPABImpl;
 import com.blazartech.products.qotdp.process.impl.PriorDateDetermination;
@@ -64,9 +63,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(QuoteOfTheDayRESTController.class)
 @ContextConfiguration(classes = {
     QuoteOfTheDayRESTControllerTest.QuoteOfTheDayRESTControllerTestConfiguration.class,
-    DatasourceConfiguration.class,
-    BlazarCryptoFilePropertiesConfiguration.class,
-    BlazarCryptoFileConfiguration.class,
+    TestDataSourceConfiguration.class,
     EntityManagerConfig.class,
     JpaVendorAdapterConfig.class,
     TransactionManagerConfig.class,
