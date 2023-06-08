@@ -4,8 +4,6 @@
  */
 package com.blazartech.products.qotdp.rest;
 
-import com.blazartech.products.crypto.impl.BlazarCryptoFileConfiguration;
-import com.blazartech.products.crypto.impl.BlazarCryptoFilePropertiesConfiguration;
 import com.blazartech.products.qotdp.data.Quote;
 import com.blazartech.products.qotdp.data.QuoteOfTheDay;
 import com.blazartech.products.qotdp.data.QuoteOfTheDayHistory;
