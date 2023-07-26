@@ -4,6 +4,10 @@
  */
 package com.blazartech.products.qotdp.rest;
 
+import com.blazartech.blazarusermanagement.products.serverutil.JwtAuthenticationEntryPoint;
+import com.blazartech.blazarusermanagement.products.serverutil.JwtRequestFilter;
+import com.blazartech.blazarusermanagement.products.serverutil.WebSecurityConfiguration;
+import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
 import com.blazartech.products.qotdp.data.Quote;
 import com.blazartech.products.qotdp.data.QuoteOfTheDay;
 import com.blazartech.products.qotdp.data.QuoteOfTheDayHistory;
@@ -65,12 +69,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     EntityManagerConfig.class,
     JpaVendorAdapterConfig.class,
     TransactionManagerConfig.class,
-    SourceCodeComparatorConfiguration.class
+    SourceCodeComparatorConfiguration.class,
+    WebSecurityConfiguration.class
 })
 @Transactional
 public class QuoteOfTheDayRESTControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(QuoteOfTheDayRESTControllerTest.class);
+
+    private static final String JWT_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzY290dCIsInJvbGVzIjpbIlJPTEVfRUFSTklOR1NfREVNT19VU0VSIiwiUk9MRV9RVU9URV9PRl9USEVfREFZX1VTRVIiXSwiZXhwIjoxNjkwNDAwMjQzLCJpYXQiOjE2OTAzOTY2NDN9.pEXq7o0Wi2zYhf9nHMG3gTD7QDJ7VWZ32j21by1rFJUSfP2O9bbz253GIUzNXHPH3VZ9Z684aE5Paf_tXzZtfQ";
 
     @Configuration
     @PropertySource("classpath:unittest.properties")
@@ -80,30 +87,45 @@ public class QuoteOfTheDayRESTControllerTest {
         public QuoteOfTheDayRESTController instance() {
             return new QuoteOfTheDayRESTController();
         }
-        
+
         @Bean
         public QuoteOfTheDayDAL dal() {
             return new QuoteOfTheDayDALSpringJpaImpl();
         }
-        
+
         @Bean
         public GetQuoteOfTheDayPAB quoteOfTheDayPAB() {
             return new GetQuoteOfTheDayPABImpl();
         }
-        
+
         @Bean
         public DateServices dateServices() {
             return new DateServicesImpl();
         }
-        
+
         @Bean
         public RandomIndexGenerator randomIndexGenerator() {
             return new RandomIndexGeneratorImpl();
         }
-        
+
         @Bean
         public PriorDateDetermination priorDateDetermination() {
             return new PriorDateDeterminationImpl();
+        }
+        
+        @Bean
+        public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+            return new JwtAuthenticationEntryPoint();
+        }
+        
+        @Bean
+        public JwtRequestFilter jwtRequestFilter() {
+            return new JwtRequestFilter();
+        }
+        
+        @Bean
+        public JwtTokenUtil tokenUtil() {
+            return new TestJwtTokenUtil();
         }
     }
 
@@ -153,6 +175,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote")
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + JWT_TOKEN)
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -185,6 +208,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote?sourceCode=" + sourceCode)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                            .header("Authorization", "Bearer " + JWT_TOKEN)
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -216,6 +240,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote/" + quoteNumber)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                            .header("Authorization", "Bearer " + JWT_TOKEN)
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
