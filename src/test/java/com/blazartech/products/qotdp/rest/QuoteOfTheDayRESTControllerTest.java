@@ -78,7 +78,7 @@ public class QuoteOfTheDayRESTControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(QuoteOfTheDayRESTControllerTest.class);
 
-    private static final String JWT_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzY290dCIsInJvbGVzIjpbIlJPTEVfRUFSTklOR1NfREVNT19VU0VSIiwiUk9MRV9RVU9URV9PRl9USEVfREFZX1VTRVIiXSwiZXhwIjoxNjkwNDAwMjQzLCJpYXQiOjE2OTAzOTY2NDN9.pEXq7o0Wi2zYhf9nHMG3gTD7QDJ7VWZ32j21by1rFJUSfP2O9bbz253GIUzNXHPH3VZ9Z684aE5Paf_tXzZtfQ";
+    private static final String JWT_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzY290dCIsInJvbGVzIjpbIlJPTEVfRUFSTklOR1NfREVNT19VU0VSIiwiUk9MRV9RVU9URV9PRl9USEVfREFZX1VTRVIiXSwiZXhwIjoxNjkwNDA2MTYyLCJpYXQiOjE2OTA0MDI1NjJ9.tHQC7pYFlFd7KpJH9uARIz-8OHrjqj7MZrfhmxr349d5h076QmrcgFgmPC8Ix9tYoHaL2NGWi5ssD7uzx4dnng";
 
     @Configuration
     @PropertySource("classpath:unittest.properties")

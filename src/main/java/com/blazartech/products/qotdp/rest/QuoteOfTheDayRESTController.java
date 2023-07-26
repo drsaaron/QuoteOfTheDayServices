@@ -149,7 +149,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public Quote addQuote(@Parameter(description = "new quote data") @RequestBody Quote quote) {
         logger.info("adding quote " + quote.getText());
 
@@ -169,7 +169,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public Quote updateQuote(
             @Parameter(description = "quote ID") @PathVariable int id, 
             @Parameter(description = "updated quote data") @RequestBody Quote quote) {
@@ -254,7 +254,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteOfTheDay addQuoteOfTheDay(@Parameter(description = "quote of the day") @RequestBody QuoteOfTheDay qotd) {
         logger.info("adding quote " + qotd.getQuoteNumber() + " as quote of the day for " + qotd.getRunDate());
 
@@ -316,7 +316,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteSourceCode addSourceCode(@Parameter(description = "source coce") @RequestBody QuoteSourceCode sourceCode) {
         logger.info("adding source code " + sourceCode.getText());
         dal.addQuoteSourceCode(sourceCode);
@@ -335,7 +335,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
-    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteSourceCode updateSourceCode(
             @Parameter(description = "source code") @PathVariable int id,
             @Parameter(description = "updated source code data") @RequestBody QuoteSourceCode sourceCode) {

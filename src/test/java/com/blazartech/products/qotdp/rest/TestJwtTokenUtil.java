@@ -62,6 +62,7 @@ public class TestJwtTokenUtil implements JwtTokenUtil {
 
     //check if the token has expired, which for these mock purposes will be false
     private Boolean isTokenExpired(String token) {
+        logger.info("checking for expiration");
         return false;
     }
 
