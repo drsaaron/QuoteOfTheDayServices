@@ -231,8 +231,8 @@ public class QuoteOfTheDayRESTControllerTest {
      */
     @Test
     @Sql("classpath:testQuotes.sql")
-    public void testGetQuote() {
-        logger.info("getQuotesForSourceCode");
+    public void testGetQuote_authFailure() {
+        logger.info("getQuotesForSourceCode_authFailure");
 
         int quoteNumber = 1;
         try {
