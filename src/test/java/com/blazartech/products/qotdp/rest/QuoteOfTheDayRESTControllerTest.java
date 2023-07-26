@@ -231,8 +231,8 @@ public class QuoteOfTheDayRESTControllerTest {
      */
     @Test
     @Sql("classpath:testQuotes.sql")
-    public void testGetQuote_authFailure() {
-        logger.info("getQuotesForSourceCode_authFailure");
+    public void testGetQuote() {
+        logger.info("getQuotesForSourceCode");
 
         int quoteNumber = 1;
         try {
@@ -263,8 +263,8 @@ public class QuoteOfTheDayRESTControllerTest {
      */
     @Test
     @Sql("classpath:testQuotes.sql")
-    public void testAddQuote() {
-        logger.info("addQuote");
+    public void testAddQuote_authFailure() {
+        logger.info("addQuote_authFailure");
 
         Quote quote = new Quote();
         quote.setSourceCode(1);
@@ -275,7 +275,7 @@ public class QuoteOfTheDayRESTControllerTest {
             MvcResult result = mockMvc
                     .perform(
                             post("/quote")
-                                    .content(objectMapper.writeValueAsString(quote))
+                                    .content(asJsonString(quote))
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
                                     .header("Authorization", "Bearer " + JWT_TOKEN)
