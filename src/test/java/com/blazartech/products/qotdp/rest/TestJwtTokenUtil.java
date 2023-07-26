@@ -94,7 +94,6 @@ public class TestJwtTokenUtil implements JwtTokenUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + tokenExpiry * 1000))
                 .signWith(SignatureAlgorithm.HS512, getSecret()).compact();
     }
 
