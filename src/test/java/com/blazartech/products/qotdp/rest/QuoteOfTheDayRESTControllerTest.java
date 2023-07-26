@@ -54,6 +54,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -112,17 +113,17 @@ public class QuoteOfTheDayRESTControllerTest {
         public PriorDateDetermination priorDateDetermination() {
             return new PriorDateDeterminationImpl();
         }
-        
+
         @Bean
         public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
             return new JwtAuthenticationEntryPoint();
         }
-        
+
         @Bean
         public JwtRequestFilter jwtRequestFilter() {
             return new JwtRequestFilter();
         }
-        
+
         @Bean
         public JwtTokenUtil tokenUtil() {
             return new TestJwtTokenUtil();
@@ -208,7 +209,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote?sourceCode=" + sourceCode)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + JWT_TOKEN)
+                                    .header("Authorization", "Bearer " + JWT_TOKEN)
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -240,7 +241,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote/" + quoteNumber)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + JWT_TOKEN)
+                                    .header("Authorization", "Bearer " + JWT_TOKEN)
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -260,16 +261,32 @@ public class QuoteOfTheDayRESTControllerTest {
     /**
      * Test of addQuote method, of class QuoteOfTheDayRESTController.
      */
-    //@Test
+    @Test
+    @Sql("classpath:testQuotes.sql")
     public void testAddQuote() {
-        System.out.println("addQuote");
-        Quote quote = null;
-        QuoteOfTheDayRESTController instance = new QuoteOfTheDayRESTController();
-        Quote expResult = null;
-        Quote result = instance.addQuote(quote);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        logger.info("addQuote");
+
+        Quote quote = new Quote();
+        quote.setSourceCode(1);
+        quote.setText("dude");
+        quote.setUsable(true);
+
+        try {
+            MvcResult result = mockMvc
+                    .perform(
+                            post("/quote")
+                                    .content(objectMapper.writeValueAsString(quote))
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + JWT_TOKEN)
+                    )
+                    .andDo(print())
+                    .andExpect(status().isForbidden()) // should fail with a 401 because the user is only a general user
+                    .andReturn();
+
+        } catch (Exception e) {
+            throw new RuntimeException("error running test: " + e.getMessage(), e);
+        }
     }
 
     /**
