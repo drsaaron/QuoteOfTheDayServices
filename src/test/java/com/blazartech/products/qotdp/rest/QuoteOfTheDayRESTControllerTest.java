@@ -4,6 +4,10 @@
  */
 package com.blazartech.products.qotdp.rest;
 
+import com.blazartech.blazarusermanagement.products.serverutil.JwtAuthenticationEntryPoint;
+import com.blazartech.blazarusermanagement.products.serverutil.JwtRequestFilter;
+import com.blazartech.blazarusermanagement.products.serverutil.WebSecurityConfiguration;
+import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
 import com.blazartech.products.qotdp.data.Quote;
 import com.blazartech.products.qotdp.data.QuoteOfTheDay;
 import com.blazartech.products.qotdp.data.QuoteOfTheDayHistory;
@@ -25,8 +29,11 @@ import com.blazartech.products.services.date.impl.DateServicesImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,12 +51,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -65,12 +77,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     EntityManagerConfig.class,
     JpaVendorAdapterConfig.class,
     TransactionManagerConfig.class,
-    SourceCodeComparatorConfiguration.class
+    SourceCodeComparatorConfiguration.class,
+    WebSecurityConfiguration.class
 })
 @Transactional
 public class QuoteOfTheDayRESTControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(QuoteOfTheDayRESTControllerTest.class);
+
+    @Autowired
+    private JwtTokenUtil tokenUtil;
+
+    private String getJWTToken() {
+
+        List<String> roles = Arrays.asList("ROLE_QUOTE_OF_THE_DAY_USER");
+        List<GrantedAuthority> authorities = roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
+        UserDetails user = new User("testme", "blah", authorities);
+        String token = tokenUtil.generateToken(user);
+        logger.info("token  = {}", token);
+        return token;
+    }
 
     @Configuration
     @PropertySource("classpath:unittest.properties")
@@ -80,30 +106,45 @@ public class QuoteOfTheDayRESTControllerTest {
         public QuoteOfTheDayRESTController instance() {
             return new QuoteOfTheDayRESTController();
         }
-        
+
         @Bean
         public QuoteOfTheDayDAL dal() {
             return new QuoteOfTheDayDALSpringJpaImpl();
         }
-        
+
         @Bean
         public GetQuoteOfTheDayPAB quoteOfTheDayPAB() {
             return new GetQuoteOfTheDayPABImpl();
         }
-        
+
         @Bean
         public DateServices dateServices() {
             return new DateServicesImpl();
         }
-        
+
         @Bean
         public RandomIndexGenerator randomIndexGenerator() {
             return new RandomIndexGeneratorImpl();
         }
-        
+
         @Bean
         public PriorDateDetermination priorDateDetermination() {
             return new PriorDateDeterminationImpl();
+        }
+
+        @Bean
+        public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+            return new JwtAuthenticationEntryPoint();
+        }
+
+        @Bean
+        public JwtRequestFilter jwtRequestFilter() {
+            return new JwtRequestFilter();
+        }
+
+        @Bean
+        public JwtTokenUtil tokenUtil() {
+            return new TestJwtTokenUtil();
         }
     }
 
@@ -153,6 +194,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote")
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + getJWTToken())
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -185,6 +227,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote?sourceCode=" + sourceCode)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + getJWTToken())
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -216,6 +259,7 @@ public class QuoteOfTheDayRESTControllerTest {
                             get("/quote/" + quoteNumber)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + getJWTToken())
                     )
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
@@ -235,16 +279,32 @@ public class QuoteOfTheDayRESTControllerTest {
     /**
      * Test of addQuote method, of class QuoteOfTheDayRESTController.
      */
-    //@Test
-    public void testAddQuote() {
-        System.out.println("addQuote");
-        Quote quote = null;
-        QuoteOfTheDayRESTController instance = new QuoteOfTheDayRESTController();
-        Quote expResult = null;
-        Quote result = instance.addQuote(quote);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    @Sql("classpath:testQuotes.sql")
+    public void testAddQuote_authFailure() {
+        logger.info("addQuote_authFailure");
+
+        Quote quote = new Quote();
+        quote.setSourceCode(1);
+        quote.setText("dude");
+        quote.setUsable(true);
+
+        try {
+            MvcResult result = mockMvc
+                    .perform(
+                            post("/quote")
+                                    .content(asJsonString(quote))
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .accept(MediaType.APPLICATION_JSON)
+                                    .header("Authorization", "Bearer " + getJWTToken())
+                    )
+                    .andDo(print())
+                    .andExpect(status().isForbidden()) // should fail with a 401 because the user is only a general user
+                    .andReturn();
+
+        } catch (Exception e) {
+            throw new RuntimeException("error running test: " + e.getMessage(), e);
+        }
     }
 
     /**

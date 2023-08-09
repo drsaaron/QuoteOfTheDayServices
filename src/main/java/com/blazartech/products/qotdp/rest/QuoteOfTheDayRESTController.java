@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -93,6 +94,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public Collection<Quote> getQuotes() {
         logger.info("getting all quotes");
 
@@ -110,6 +112,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public Collection<Quote> getQuotesForSourceCode(@Parameter(description = "a source code") @RequestParam int sourceCode) {
         logger.info("getting quotes for source code " + sourceCode);
 
@@ -126,7 +129,9 @@ public class QuoteOfTheDayRESTController {
                             schema = @Schema(implementation = Quote.class)
                     )
                 })
-    })    public Quote getQuote(@Parameter(description = "quote ID") @PathVariable int id) {
+    })    
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
+    public Quote getQuote(@Parameter(description = "quote ID") @PathVariable int id) {
         logger.info("getting quote #" + id);
 
         return dal.getQuote(id);
@@ -144,6 +149,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public Quote addQuote(@Parameter(description = "new quote data") @RequestBody Quote quote) {
         logger.info("adding quote " + quote.getText());
 
@@ -163,6 +169,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public Quote updateQuote(
             @Parameter(description = "quote ID") @PathVariable int id, 
             @Parameter(description = "updated quote data") @RequestBody Quote quote) {
@@ -188,6 +195,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public QuoteOfTheDayHistory getQuoteOfTheDayHistoryForQuote(@Parameter(description = "quote ID") @PathVariable int id) {
         logger.info("getting quote of the day history for " + id);
 
@@ -210,6 +218,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public QuoteOfTheDay getQuoteOfTheDay() {
         logger.info("getting quote of the day for today");
 
@@ -227,6 +236,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })   
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public QuoteOfTheDay getQuoteOfTheDay(@Parameter(description = "run date, format yyyy-MM-dd") @PathVariable Date runDate) {
         logger.info("getting quote of the day for " + runDate);
         return getQuoteOfTheDayPAB.getQuoteOfTheDay(runDate);
@@ -244,6 +254,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteOfTheDay addQuoteOfTheDay(@Parameter(description = "quote of the day") @RequestBody QuoteOfTheDay qotd) {
         logger.info("adding quote " + qotd.getQuoteNumber() + " as quote of the day for " + qotd.getRunDate());
 
@@ -268,6 +279,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public Collection<QuoteSourceCode> getQuoteSourceCodes() {
         logger.info("getting all quote source codes");
 
@@ -285,6 +297,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
     public QuoteSourceCode getQuoteSourceCode(@Parameter(description = "source code") @PathVariable int id) {
         logger.info("getting source code " + id);
 
@@ -303,6 +316,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteSourceCode addSourceCode(@Parameter(description = "source coce") @RequestBody QuoteSourceCode sourceCode) {
         logger.info("adding source code " + sourceCode.getText());
         dal.addQuoteSourceCode(sourceCode);
@@ -321,6 +335,7 @@ public class QuoteOfTheDayRESTController {
                     )
                 })
     })
+    @PreAuthorize("hasAuthority('ROLE_QOTD_ADMIN_USER')")
     public QuoteSourceCode updateSourceCode(
             @Parameter(description = "source code") @PathVariable int id,
             @Parameter(description = "updated source code data") @RequestBody QuoteSourceCode sourceCode) {
