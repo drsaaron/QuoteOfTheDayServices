@@ -8,6 +8,8 @@ import com.blazartech.blazarusermanagement.products.serverutil.JwtAuthentication
 import com.blazartech.blazarusermanagement.products.serverutil.JwtRequestFilter;
 import com.blazartech.blazarusermanagement.products.serverutil.WebSecurityConfiguration;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
+import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtilImpl;
+import com.blazartech.products.crypto.BlazarCryptoFile;
 import com.blazartech.products.qotdp.data.Quote;
 import com.blazartech.products.qotdp.data.QuoteOfTheDay;
 import com.blazartech.products.qotdp.data.QuoteOfTheDayHistory;
@@ -43,10 +45,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.anyString;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -144,10 +149,13 @@ public class QuoteOfTheDayRESTControllerTest {
 
         @Bean
         public JwtTokenUtil tokenUtil() {
-            return new TestJwtTokenUtil();
+            return new JwtTokenUtilImpl();
         }
     }
 
+    @MockBean
+    private BlazarCryptoFile cryptoFile;
+    
     @Autowired
     private MockMvc mockMvc;
 
@@ -164,6 +172,8 @@ public class QuoteOfTheDayRESTControllerTest {
 
     @BeforeEach
     public void setUp() {
+        Mockito.when(cryptoFile.getPassword(anyString(), anyString()))
+                .thenReturn("IAmaSecret");
     }
 
     @AfterEach

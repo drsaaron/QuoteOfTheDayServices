@@ -57,7 +57,8 @@ public class TestJwtTokenUtil implements JwtTokenUtil {
 
     //for retrieveing any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(getSecret()).parseClaimsJws(token).getBody();
+     //   return Jwts.parser().setSigningKey(getSecret()).parseClaimsJws(token).getBody();
+     return null;
     }
 
     //check if the token has expired, which for these mock purposes will be false
