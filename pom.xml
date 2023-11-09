@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>2.6-RELEASE</version>
+    <version>2.7-RELEASE</version>
     <packaging>jar</packaging>
     <description>services for accessing data in the quote of the day application</description>
     <properties>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>BlazarUserManagement-serverUtil</artifactId>
-            <version>1.7-RELEASE</version>
+            <version>1.8-RELEASE</version>
         </dependency>
 
         <!-- swagger documentation, see https://www.baeldung.com/spring-rest-openapi-documentation -->
