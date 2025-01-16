@@ -153,7 +153,7 @@ public class QuoteOfTheDayRESTControllerTest {
         }
     }
 
-    @MockBean
+    @MockitoBean
     private BlazarCryptoFile cryptoFile;
     
     @Autowired
