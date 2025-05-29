@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>2.26-RELEASE</version>
+    <version>2.27-RELEASE</version>
     <packaging>jar</packaging>
     <description>services for accessing data in the quote of the day application</description>
     <properties>
@@ -14,7 +14,7 @@
     <parent>  
         <groupId>com.blazartech</groupId>           
         <artifactId>blazarjavaparent</artifactId>           
-        <version>1.6-RELEASE</version>     
+        <version>1.9-RELEASE</version>     
     </parent> 
     
     <dependencies>
@@ -25,13 +25,13 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-process</artifactId>
-            <version>1.61-RELEASE</version>
+            <version>1.62-RELEASE</version>
         </dependency>
         
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-data-jpaImpl</artifactId>
-            <version>1.71-RELEASE</version>
+            <version>1.72-RELEASE</version>
         </dependency>
         
         <dependency>
@@ -55,14 +55,14 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>BlazarUserManagement-serverUtil</artifactId>
-            <version>1.24-RELEASE</version>
+            <version>1.27-RELEASE</version>
         </dependency>
 
         <!-- swagger documentation, see https://www.baeldung.com/spring-rest-openapi-documentation -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.8.5</version>
+            <version>2.8.8</version>
         </dependency>
 
         <!-- actuator -->
