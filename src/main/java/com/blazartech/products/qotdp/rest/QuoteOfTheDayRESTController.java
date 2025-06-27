@@ -21,8 +21,8 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,20 +63,6 @@ public class QuoteOfTheDayRESTController {
 
     @Value("${dateServices.date.format}")
     private String dateFormat;
-
-    /**
-     * define a binder that will allow handle dates on requests. replaces use of
-     *
-     * @DateTimeFormat
-     *
-     * @param binder
-     */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-        df.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
-    }
 
     /*
      **************************************
@@ -237,7 +223,7 @@ public class QuoteOfTheDayRESTController {
                 })
     })   
     @PreAuthorize("hasAuthority('ROLE_QUOTE_OF_THE_DAY_USER')")
-    public QuoteOfTheDay getQuoteOfTheDay(@Parameter(description = "run date, format yyyy-MM-dd") @PathVariable Date runDate) {
+    public QuoteOfTheDay getQuoteOfTheDay(@Parameter(description = "run date, format yyyy-MM-dd") @PathVariable LocalDate runDate) {
         logger.info("getting quote of the day for " + runDate);
         return getQuoteOfTheDayPAB.getQuoteOfTheDay(runDate);
     }

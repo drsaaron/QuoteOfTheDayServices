@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>QuoteOfTheDayServices</artifactId>
-    <version>2.28-RELEASE</version>
+    <version>2.29-RELEASE</version>
     <packaging>jar</packaging>
     <description>services for accessing data in the quote of the day application</description>
     <properties>
@@ -25,13 +25,13 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-process</artifactId>
-            <version>1.63-RELEASE</version>
+            <version>1.64-RELEASE</version>
         </dependency>
         
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>QuoteOfTheDay-data-jpaImpl</artifactId>
-            <version>1.73-RELEASE</version>
+            <version>1.74-RELEASE</version>
         </dependency>
         
         <dependency>
@@ -131,7 +131,7 @@
             <plugin>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <phase>integration-test</phase>

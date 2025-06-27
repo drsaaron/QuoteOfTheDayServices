@@ -31,9 +31,9 @@ import com.blazartech.products.services.date.impl.DateServicesImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
@@ -369,7 +369,7 @@ public class QuoteOfTheDayRESTControllerTest {
     //@Test
     public void testGetQuoteOfTheDay_Date() {
         System.out.println("getQuoteOfTheDay");
-        Date runDate = null;
+        LocalDate runDate = null;
         QuoteOfTheDayRESTController instance = new QuoteOfTheDayRESTController();
         QuoteOfTheDay expResult = null;
         QuoteOfTheDay result = instance.getQuoteOfTheDay(runDate);
