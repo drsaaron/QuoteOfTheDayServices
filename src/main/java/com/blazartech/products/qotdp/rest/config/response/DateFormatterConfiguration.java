@@ -7,11 +7,11 @@ package com.blazartech.products.qotdp.rest.config.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /**
  * A configuration class to setup the jackson object mapper to map dates with the 
@@ -28,11 +28,11 @@ public class DateFormatterConfiguration {
     private String dateFormat;
 
     @Bean
-    public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
-        ObjectMapper mapper = builder
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+    public ObjectMapper objectMapper() {
+        JsonMapper mapper = JsonMapper.builder()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .defaultDateFormat(new SimpleDateFormat(dateFormat))
                 .build();
-        mapper.setDateFormat(new SimpleDateFormat(dateFormat));
         return mapper;
     }
 }
