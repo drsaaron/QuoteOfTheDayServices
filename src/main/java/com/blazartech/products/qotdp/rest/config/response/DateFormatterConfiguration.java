@@ -5,13 +5,12 @@
  */
 package com.blazartech.products.qotdp.rest.config.response;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * A configuration class to setup the jackson object mapper to map dates with the 
@@ -30,7 +29,6 @@ public class DateFormatterConfiguration {
     @Bean
     public ObjectMapper objectMapper() {
         JsonMapper mapper = JsonMapper.builder()
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .defaultDateFormat(new SimpleDateFormat(dateFormat))
                 .build();
         return mapper;
