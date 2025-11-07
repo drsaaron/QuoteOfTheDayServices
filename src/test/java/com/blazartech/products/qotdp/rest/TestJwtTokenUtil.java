@@ -8,7 +8,6 @@ import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtilImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collection;
@@ -92,10 +91,11 @@ public class TestJwtTokenUtil implements JwtTokenUtil {
     //   compaction of the JWT to a URL-safe string 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .signWith(SignatureAlgorithm.HS512, getSecret()).compact();
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + tokenExpiry * 1000))
+                .compact();
     }
 
     //validate token
