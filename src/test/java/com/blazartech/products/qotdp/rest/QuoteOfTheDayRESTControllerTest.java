@@ -171,7 +171,7 @@ public class QuoteOfTheDayRESTControllerTest {
     @BeforeEach
     public void setUp() {
         Mockito.when(cryptoFile.getPassword(anyString(), anyString()))
-                .thenReturn("IAmaSecret");
+                .thenReturn("IAmaSecret IAmaSecret IAmaSecret IAmaSecret");
     }
 
     @AfterEach
