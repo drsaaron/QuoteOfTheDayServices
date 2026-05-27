@@ -8,6 +8,8 @@ import com.blazartech.blazarusermanagement.products.serverutil.JwtAuthentication
 import com.blazartech.blazarusermanagement.products.serverutil.JwtRequestFilter;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtilImpl;
+import com.blazartech.products.blazarusermanagement.tokenutil.PublicPrivateKeyHolder;
+import com.blazartech.products.blazarusermanagement.tokenutil.PublicPrivateKeyHolderImpl;
 import com.blazartech.products.crypto.BlazarCryptoFile;
 import com.blazartech.products.qotdp.data.Quote;
 import com.blazartech.products.qotdp.data.QuoteOfTheDay;
@@ -148,6 +150,11 @@ public class QuoteOfTheDayRESTControllerTest {
         @Bean
         public JwtTokenUtil tokenUtil() {
             return new JwtTokenUtilImpl();
+        }
+        
+        @Bean
+        public PublicPrivateKeyHolder keyHolder() {
+            return new PublicPrivateKeyHolderImpl();
         }
     }
 
