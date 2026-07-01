@@ -8,6 +8,7 @@ import com.blazartech.blazarusermanagement.products.serverutil.JwtAuthentication
 import com.blazartech.blazarusermanagement.products.serverutil.JwtRequestFilter;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtil;
 import com.blazartech.products.blazarusermanagement.tokenutil.JwtTokenUtilImpl;
+import com.blazartech.products.blazarusermanagement.tokenutil.PublicPrivateKeyConfiguration;
 import com.blazartech.products.blazarusermanagement.tokenutil.PublicPrivateKeyHolder;
 import com.blazartech.products.blazarusermanagement.tokenutil.PublicPrivateKeyHolderImpl;
 import com.blazartech.products.crypto.BlazarCryptoFile;
@@ -83,7 +84,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     EntityManagerConfig.class,
     JpaVendorAdapterConfig.class,
     TransactionManagerConfig.class,
-    SourceCodeComparatorConfiguration.class
+    SourceCodeComparatorConfiguration.class,
+    PublicPrivateKeyConfiguration.class
 })
 @Transactional
 public class QuoteOfTheDayRESTControllerTest {
